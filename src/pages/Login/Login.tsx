@@ -1,17 +1,18 @@
 import React, { useCallback, useState } from "react";
-import * as Yup from "yup";
 import "./login.scss";
-import backgroundImage from "../../assets/images/bg-signin.png"
-import { Formik, FormikHelpers, useFormik } from "formik";
-import { LoginService } from "../../Services/Api/LoginServices";
-import { DOMAIN_MY_LIFE, TOKEN_MY_LIFE } from "../../Utils/systemSetting";
+import backgroundImage from "../../assets/images/bg-signin.png";
+import { useDispatch } from "react-redux";
+import { SignInAction } from "../../Store/actions/userActions";
+import { useNavigate } from "react-router-dom"
 
-interface Values {
-  username: string,
-  password: string
+interface Login {
+  email: string;
+  password: string;
 }
 
 const Login = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [values, setValues] = useState({
     email: "", password: "",
@@ -19,28 +20,36 @@ const Login = () => {
   const [errors, setErrors] = useState({
     email: "", password: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
-  const Validate = (values: any) => {
+  const Validate = (values: Login) => {
     let errors = { email: "", password: "" };
     if (!values.email) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
       errors.email = "Email is invalid";
     }
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length <= 7) {
+      errors.password = "password must be longer than or equal to 8 characters"
+    }
     return errors;
   }
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setErrors(Validate(values));
-    const formData = new FormData(e.target);
-    const data = JSON.stringify(Object.fromEntries(formData));
-    LoginService.login(data);
-    console.log("data", data);
-
+  const goToHome = () => {
+    navigate("/");
   }
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      setErrors(Validate(values));
+      const formData = new FormData(e.target);
+      const data = JSON.stringify(Object.fromEntries(formData));
+      dispatch(SignInAction(data, goToHome));
+    }, []
+  );
   const handleChange = (event: any) => {
     event.persist();
     setValues(values => ({ ...values, [event.target.name]: event.target.value }))
@@ -56,7 +65,7 @@ const Login = () => {
           <input
             type="email"
             name="email"
-            value={values.email}
+            value={values.email || ""}
             onChange={handleChange}
           />
           {
@@ -71,7 +80,11 @@ const Login = () => {
             value={values.password || ""}
             onChange={handleChange}
           />
-
+          {
+            errors.password && (
+              <p className="text-danger">{errors.password}</p>
+            )
+          }
           <button type="submit">
             Sign In
           </button>
