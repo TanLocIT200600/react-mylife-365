@@ -1,0 +1,70 @@
+.liver {
+  background-color: #f3f4f1;
+  min-height: 100vh;
+
+  position: relative;
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2% 5%;
+    background: #fbfbfb;
+    &__title {
+      font-size: 24px;
+      color: #141414;
+    }
+  }
+
+  &__content {
+    width: 1110px;
+    height: 632px;
+    background: #ffffff;
+    box-shadow: 0px 2px 4px -2px rgba(24, 39, 75, 12%);
+    border-radius: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &__list {
+      width: 540px;
+      margin: 0 auto;
+      padding: 64px 0 83px 0;
+
+      & .input-group {
+        width: 540px;
+
+        &-text {
+          background-color: #f3f3f3;
+          border: 1px solid #f3f3f3;
+          border-top-left-radius: 18px;
+          border-bottom-left-radius: 18px;
+
+          margin-bottom: 48px;
+        }
+
+        input[type="text"] {
+          width: 490px;
+          border: 1px solid #f3f3f3;
+          background-color: #f3f3f3;
+          border-top-right-radius: 18px;
+          border-bottom-right-radius: 18px;
+          margin-bottom: 48px;
+        }
+      }
+
+      & .search {
+        width: 207px;
+        font-size: 18px;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: #145930;
+        color: #fff;
+        font-weight: 500;
+        margin: auto;
+        display: block;
+      }
+    }
+  }
+}

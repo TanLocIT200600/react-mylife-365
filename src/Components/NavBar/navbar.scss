@@ -1,0 +1,51 @@
+.Navbar {
+  background: #fff;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  &-top {
+    height: 30vh;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  &-logo {
+    img {
+      width: 92px;
+      height: 60px;
+    }
+  }
+
+  &-title {
+    display: contents;
+    &-link {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #9fb198;
+      transition: color 0.5s ease;
+      &:hover {
+        color: #145930;
+      }
+    }
+
+    &-img {
+      margin-right: 12px;
+    }
+  }
+  &-footer {
+    width: 100%;
+    margin: 0 0 3rem 8rem;
+
+    &-logout {
+      color: #145930;
+      &:hover {
+        color: #145930;
+      }
+    }
+  }
+}

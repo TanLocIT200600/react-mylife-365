@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { SignInAction } from "../../Store/actions/userActions";
 import { useNavigate } from "react-router-dom"
 
-interface Login {
+interface ILogin {
   email: string;
   password: string;
 }
@@ -22,7 +22,7 @@ const Login = () => {
   });
 
 
-  const Validate = (values: Login) => {
+  const Validate = (values: ILogin) => {
     let errors = { email: "", password: "" };
     if (!values.email) {
       errors.email = "Email is required";
