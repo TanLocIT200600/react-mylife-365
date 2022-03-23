@@ -1,7 +1,7 @@
 import React from "react";
 import "./navbar.scss";
 import { logo, bell, coach, healthy, logout } from "../../assets/index";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -62,9 +62,7 @@ const NavBar = () => {
       </div>
       <div className="Navbar-footer">
         <NavLink to="/login" className="Navbar-footer-logout" onClick={() => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("USER_LOGIN");
-          // window.location.reload();
+          localStorage.clear();
         }}>
           <img src={logout} alt="" /> Logout
         </NavLink>

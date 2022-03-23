@@ -1,10 +1,10 @@
-import { USER_LOGIN } from "../../Utils/systemSetting";
+// import { USER_LOGIN } from "../../Utils/systemSetting";
 import { USER_SIGNIN, USER_SIGNUP } from "../constants/userConstant";
 
-let user = {};
-if (localStorage.getItem(USER_LOGIN)) {
-  // user = JSON.parse(localStorage.getItem(USER_LOGIN));
-}
+// let user = {};
+// if (localStorage.getItem(USER_LOGIN)) {
+//   user = JSON.parse(localStorage.getItem(USER_LOGIN));
+// }
 
 const initialState = {
   userLogin: {},

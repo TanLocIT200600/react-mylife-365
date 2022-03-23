@@ -1,9 +1,11 @@
+import { LoadingReducer } from './reducers/loadingReducer';
 import { userReducer } from "./reducers/userReducer";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   userReducer,
+  LoadingReducer
 });
 
 declare global {

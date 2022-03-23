@@ -4,6 +4,7 @@ import backgroundImage from "../../assets/images/bg-signin.png";
 import { useDispatch } from "react-redux";
 import { SignInAction } from "../../Store/actions/userActions";
 import { useNavigate } from "react-router-dom"
+import { AdminServices } from "../../Services/adminServices";
 
 interface ILogin {
   email: string;
@@ -38,7 +39,7 @@ const Login = () => {
   }
 
   const goToHome = () => {
-    navigate("/");
+    navigate("/home");
   }
 
   const handleSubmit = useCallback(
@@ -48,7 +49,7 @@ const Login = () => {
       const formData = new FormData(e.target);
       const data = JSON.stringify(Object.fromEntries(formData));
       dispatch(SignInAction(data, goToHome));
-    }, []
+    }, [dispatch, setErrors]
   );
   const handleChange = (event: any) => {
     event.persist();
@@ -58,7 +59,7 @@ const Login = () => {
   return (
     <div className="login-bg" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="login-form">
-        <h1 className="login-form-title">Welcome to Mylife365 admin portal</h1>
+        <h1 className="login-form-title">Welcome to My Life 365 admin portal</h1>
 
         <form onSubmit={handleSubmit}>
           <label>Username</label>
