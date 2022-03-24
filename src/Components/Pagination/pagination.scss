@@ -1,0 +1,15 @@
+.page-item {
+  button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #c2c9d1;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+    margin-right: 5px;
+    &.active {
+      color: #141414;
+      background: #c7c7c7;
+    }
+  }
+}

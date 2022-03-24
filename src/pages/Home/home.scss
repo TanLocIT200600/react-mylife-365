@@ -39,9 +39,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1110px;
-    height: 590px;
+    height: auto;
+    max-height: 590px;
     background: #ffffff;
-    box-shadow: 0px 2px 4px -2px rgba(24, 39, 75, 12%);
+    box-shadow: 0px 2px 4px -2px #18274b;
     border-radius: 12px;
 
     &__title {
@@ -49,13 +50,22 @@
       color: #145930;
 
       &--item {
-        padding: 14px 16px;
+        padding: 10px 16px;
         font-size: 14px;
         font-weight: 500;
 
         select {
           border: none;
         }
+      }
+      &.active {
+        color: #2a9b00;
+      }
+      &.inactive {
+        color: #747474;
+      }
+      &.archive {
+        color: #b7b7b7;
       }
       &--item:nth-child(1) {
         border-top-left-radius: 12px;
@@ -74,6 +84,156 @@
         padding: 14px 16px;
         height: 48px;
         border-bottom: 1px solid #33333324;
+
+        & .dropdown {
+          button {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          & .btn:focus {
+            box-shadow: none;
+          }
+          & .dropdown-menu {
+            min-width: 8rem;
+            border-radius: 18px;
+            border: 2px solid #c7c7c7;
+          }
+        }
+      }
+    }
+  }
+}
+.add-user-modal {
+  .modal {
+    &-dialog {
+      height: auto;
+      min-width: 1024px;
+      min-height: 80vh;
+    }
+    &-content {
+      width: 654px;
+      height: 388px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 18px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.13);
+      border: none;
+    }
+    &-header {
+      display: block;
+      color: #145930;
+      text-align: center;
+      padding: 55px 0 19px 0;
+      border-bottom: none;
+    }
+    &-body-add_user {
+      width: 334px;
+      margin: 0 160px;
+    }
+    &-body {
+      padding: 0;
+      p {
+        font-size: 14px;
+        color: #145930;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      input[type="email"],
+      select {
+        width: 100%;
+        padding: 8px 16px;
+        font-size: 14px;
+        margin-bottom: 16px;
+        border-radius: 18px;
+        border: 2px solid #145930;
+      }
+    }
+    &-footer {
+      border-top: none;
+      padding: 0;
+      button {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+        width: 152px;
+        height: 36px;
+        border-radius: 18px;
+      }
+      & .btn {
+        &-footer {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          margin: 24px 0 55px 0;
+        }
+        &-cancel {
+          background: #e3ebe6;
+          border: 2px solid #145930;
+          color: #145930;
+        }
+        &-send {
+          background: #145930;
+          border: 2px solid #145930;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.archive-modal {
+  .modal {
+    &-dialog {
+      height: auto;
+      min-width: 1024px;
+      min-height: 80vh;
+    }
+    &-content {
+      width: 562px;
+      height: 265px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 18px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.13);
+      border: none;
+    }
+    &-header {
+      display: block;
+      color: #145930;
+      text-align: center;
+      padding: 82px 0 39px 0;
+      border-bottom: none;
+    }
+
+    &-footer {
+      border-top: none;
+      padding: 0;
+      justify-content: center;
+      button {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+        width: 152px;
+        height: 36px;
+        border-radius: 18px;
+      }
+      & .btn {
+        &-cancel {
+          background: #e3ebe6;
+          border: 2px solid #145930;
+          color: #145930;
+          margin-right: 16px;
+        }
+        &-archive {
+          background: #145930;
+          border: 2px solid #145930;
+          color: #fff;
+        }
       }
     }
   }

@@ -7,8 +7,7 @@ export const GetAllUsers = () => {
   return async (dispatch: any) => {
     try {
       const result = await AdminServices.getAllUsers();
-      dispatch(createActions(GET_ALL_USERS, result.data))
-      console.log(result);
+      dispatch(createActions(GET_ALL_USERS, result.data.data))
     }
     catch (err) {
       console.log("err", err);

@@ -2,11 +2,15 @@ import { LoadingReducer } from './reducers/loadingReducer';
 import { userReducer } from "./reducers/userReducer";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
+import { adminReducers } from './reducers/adminReducers';
 
 const rootReducer = combineReducers({
   userReducer,
-  LoadingReducer
+  LoadingReducer,
+  adminReducers
 });
+
+export type RootState = ReturnType<typeof rootReducer>
 
 declare global {
   interface Window {

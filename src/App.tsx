@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import Loading from './Components/Loading/loading';
 import Layout from './HOC/Layout/Layout';

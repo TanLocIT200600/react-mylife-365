@@ -4,7 +4,7 @@ interface IUserDispatch {
   firstName: string,
   lastName: string,
   postCode: string,
-  status: Active
+  status: string
 }
 
 type UserState = {
