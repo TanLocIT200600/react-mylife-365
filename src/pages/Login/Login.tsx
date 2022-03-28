@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { SignInAction } from "../../Store/actions/userActions";
 import { useNavigate } from "react-router-dom"
 import { AdminServices } from "../../Services/adminServices";
+import { GetAllUsers } from "../../Store/actions/adminActions";
 
 interface ILogin {
   email: string;
@@ -48,7 +49,7 @@ const Login = () => {
       setErrors(Validate(values));
       const formData = new FormData(e.target);
       const data = JSON.stringify(Object.fromEntries(formData));
-      dispatch(SignInAction(data, goToHome));
+      dispatch(SignInAction(data, goToHome()));
     }, [dispatch, setErrors]
   );
   const handleChange = (event: any) => {

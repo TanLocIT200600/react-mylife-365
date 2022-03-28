@@ -7,6 +7,7 @@ interface IUserDispatch {
   status: string
 }
 
+
 type UserState = {
   user: IUserDispatch[]
 }
