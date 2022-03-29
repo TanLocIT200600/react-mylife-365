@@ -1,7 +1,8 @@
-import { listUser } from './../../models/getUser.d';
+
 import { AdminServices } from "../../Services/adminServices"
 import { GET_ALL_USERS } from "../constants/adminConstants";
 import { createActions } from "../constants/createActions";
+import { IAddUser } from '../../models/addUser';
 
 
 export const GetAllUsers = () => {
@@ -22,7 +23,6 @@ export const GetArchiveUsers = (id: string) => {
       const result = await AdminServices.getArchiveUsers(id);
       if (result.data.statusCode === 200) {
         alert(`Archive user successfully`)
-        window.location.reload();
       }
     }
     catch (err) {
@@ -37,7 +37,6 @@ export const GetUnarchiveUsers = (id: string) => {
       const result = await AdminServices.getUnarchiveUsers(id);
       if (result.data.statusCode === 200) {
         alert("Unarchive user successfully");
-        window.location.reload();
       }
     }
     catch (err) {
@@ -46,12 +45,13 @@ export const GetUnarchiveUsers = (id: string) => {
   }
 }
 
-export const GetAddUser = (userNew: listUser) => {
+export const GetAddUser = (userNew: IAddUser) => {
   return async () => {
     try {
       const result = await AdminServices.getAddUser(userNew);
-      console.log("getAddUser", result);
-
+      if (result.data.statusCode === 200) {
+        alert("Add user successfully");
+      }
     }
     catch (err) {
       console.log("errGetAddUser", err);

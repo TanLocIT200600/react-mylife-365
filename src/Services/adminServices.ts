@@ -1,4 +1,4 @@
-import { listUser } from '../models/getUser';
+import { IAddUser } from '../models/addUser';
 import { DOMAIN_MY_LIFE } from './../Utils/systemSetting';
 import { request } from './Api/request';
 
@@ -36,7 +36,7 @@ export const AdminServices = {
       }
     })
   },
-  getAddUser(userNew: listUser) {
+  getAddUser(userNew: IAddUser) {
     return request({
       url: `${DOMAIN_MY_LIFE}/api/v1/users`,
       method: 'POST',

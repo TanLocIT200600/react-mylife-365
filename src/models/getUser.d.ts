@@ -1,4 +1,5 @@
 export interface listUser {
+  target: any;
   id: string,
   email: string,
   firstName: string,
@@ -7,5 +8,5 @@ export interface listUser {
   isUpdatedProfile: boolean,
   status: string,
   role: number,
-  createdTime: number
+  createdTime: number,
 }

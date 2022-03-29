@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./home.scss";
 import { avatar } from "../../assets/index";
 import Pagination from "../../Components/Pagination/pagination";
-import { GetAllUsers, GetArchiveUsers, GetUnarchiveUsers } from "../../Store/actions/adminActions";
+import { GetAddUser, GetAllUsers, GetArchiveUsers, GetUnarchiveUsers } from "../../Store/actions/adminActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { RootState } from "../../Store/configStore";
@@ -17,8 +17,14 @@ const Home = () => {
   const [show, setShow] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
 
+  const Role = [
+    { id: 1000, name: "Admin" },
+    { id: 10, name: "Scanner User" },
+    { id: 1, name: "User" },
+  ]
+
   const [values, setValues] = useState({
-    email: "", role: "",
+    email: "", userRole: 1000,
   });
 
   const handleClose = () => setShow(false);
@@ -29,14 +35,17 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(GetAllUsers());
+
   }, [dispatch])
 
-  const handleArchiveUser = (id: string) => {
+  const handleArchiveUser = async (id: string) => {
     dispatch(GetArchiveUsers(id));
+    await dispatch(GetAllUsers());
   }
 
-  const handleUnArchiveUser = (id: string) => {
+  const handleUnArchiveUser = async (id: string) => {
     dispatch(GetUnarchiveUsers(id))
+    await dispatch(GetAllUsers());
   }
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(7);
@@ -50,8 +59,15 @@ const Home = () => {
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
   const handleChange = (event: any) => {
-    event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value, [event.target.name]: event.target.role }))
+    setValues(values => ({
+      ...values,
+      [event.target.name]: event.target.value,
+    }))
+  }
+
+  const handleAddUser = async () => {
+    dispatch(GetAddUser(values));
+    await dispatch(GetAllUsers());
   }
 
   return (
@@ -72,10 +88,9 @@ const Home = () => {
             />
 
             <p>Role</p>
-            <select value={values.role} name="Admin" className="select-archive" onChange={handleChange}>
-              <option value="admin">Admin </option>
-              <option value="userScanner">User Scanner</option>
-              <option value="user">User</option>
+            <select value={values.userRole} className="select-archive" onChange={handleChange} name="role">
+              {Role.map((item, index) => <option value={item.id} key={index}>{item.name}</option>
+              )}
             </select>
           </Modal.Body>
           <Modal.Footer>
@@ -84,8 +99,7 @@ const Home = () => {
                 Cancel
               </button>
               <button onClick={() => {
-                console.log("hello", values.email);
-                console.log("hello", values.role);
+                handleAddUser()
                 handleClose()
 
               }} className="btn-send">
