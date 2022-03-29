@@ -13,7 +13,6 @@ import { RootState } from "../../Store/configStore";
 const Home = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector((state: RootState) => state.adminReducers.listUser.users);
   const [show, setShow] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
 
@@ -37,6 +36,8 @@ const Home = () => {
     dispatch(GetAllUsers());
 
   }, [dispatch])
+
+  const users = useSelector((state: RootState) => state.adminReducers.listUser.users);
 
   const handleArchiveUser = async (id: string) => {
     dispatch(GetArchiveUsers(id));

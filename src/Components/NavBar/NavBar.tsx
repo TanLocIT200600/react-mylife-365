@@ -61,7 +61,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="Navbar-footer">
-        <NavLink to="/login" className="Navbar-footer-logout" onClick={() => {
+        <NavLink to="/" className="Navbar-footer-logout" onClick={() => {
           localStorage.clear();
         }}>
           <img src={logout} alt="" /> Logout
