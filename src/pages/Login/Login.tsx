@@ -4,8 +4,6 @@ import backgroundImage from "../../assets/images/bg-signin.png";
 import { useDispatch } from "react-redux";
 import { SignInAction } from "../../Store/actions/userActions";
 import { useNavigate } from "react-router-dom"
-import { AdminServices } from "../../Services/adminServices";
-import { GetAllUsers } from "../../Store/actions/adminActions";
 
 interface ILogin {
   email: string;

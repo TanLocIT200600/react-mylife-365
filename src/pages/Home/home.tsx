@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from "react";
 import "./home.scss";
 import { avatar } from "../../assets/index";
-import Paginations from "../../Components/Pagination/pagination";
-import { GetAllUsers, GetArchiveUsers } from "../../Store/actions/adminActions";
+import Pagination from "../../Components/Pagination/pagination";
+import { GetAllUsers, GetArchiveUsers, GetUnarchiveUsers } from "../../Store/actions/adminActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { RootState } from "../../Store/configStore";
-import { useParams } from "react-router-dom";
 
 
 
@@ -17,6 +16,11 @@ const Home = () => {
   const users = useSelector((state: RootState) => state.adminReducers.listUser.users);
   const [show, setShow] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
+
+  const [values, setValues] = useState({
+    email: "", role: "",
+  });
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -26,16 +30,16 @@ const Home = () => {
     window.scrollTo(0, 0);
     dispatch(GetAllUsers());
   }, [dispatch])
-  console.log("users", users);
 
   const handleArchiveUser = (id: string) => {
-    console.log(`hello ${id}`);
-    dispatch(GetArchiveUsers(id))
+    dispatch(GetArchiveUsers(id));
   }
 
-
+  const handleUnArchiveUser = (id: string) => {
+    dispatch(GetUnarchiveUsers(id))
+  }
   const [currentPage, setCurrentPage] = useState(1);
-  const [userPerPage] = useState(10);
+  const [userPerPage] = useState(7);
 
   // Get current posts
   const indexOfLastPost = currentPage * userPerPage;
@@ -44,6 +48,11 @@ const Home = () => {
 
   // Change page
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+
+  const handleChange = (event: any) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value, [event.target.name]: event.target.role }))
+  }
 
   return (
     <>
@@ -56,13 +65,17 @@ const Home = () => {
             <p>Email address</p>
             <input
               type="email"
+              name="email"
               placeholder="Please enter user’s email address here"
+              value={values.email || ""}
+              onChange={handleChange}
             />
 
             <p>Role</p>
-            <select name="Admin" className="select-archive">
-              <option value="">Admin </option>
-              <option value="dog">Scan Operator</option>
+            <select value={values.role} name="Admin" className="select-archive" onChange={handleChange}>
+              <option value="admin">Admin </option>
+              <option value="userScanner">User Scanner</option>
+              <option value="user">User</option>
             </select>
           </Modal.Body>
           <Modal.Footer>
@@ -70,7 +83,12 @@ const Home = () => {
               <button onClick={handleClose} className="btn-cancel">
                 Cancel
               </button>
-              <button onClick={handleClose} className="btn-send">
+              <button onClick={() => {
+                console.log("hello", values.email);
+                console.log("hello", values.role);
+                handleClose()
+
+              }} className="btn-send">
                 Send
               </button>
             </div>
@@ -115,42 +133,62 @@ const Home = () => {
                         Select
                       </button>
                       <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a className="dropdown-item" onClick={() => {
-                          handleShowArchive(item.id)
-                        }}>Archive</a></li>
-                        <li><a className="dropdown-item">Unarchive</a></li>
+                        <li>
+                          <a className="dropdown-item" onClick={() => { handleShowArchive(item.id) }}>
+                            {
+                              item.status === "Active" ? "Archive" : item.status === "Archive" ? "Unarchive" : item.status === "Inactive" ? "Archive" : "Inactive"
+                            }
+                          </a>
+                        </li>
                       </ul>
                     </div>
 
                   </td>
                   <Modal show={showArchive} onHide={handleCloseArchive} className="archive-modal">
                     <Modal.Header >
-                      <Modal.Title>Are you sure to archive this account?</Modal.Title>
+                      <Modal.Title>Are you sure to {
+                        item.status === "Active" ? "archive" : item.status === "Archive" ? "unarchive" : item.status === "Inactive" ? "archive" : "inactive"
+                      } this account?</Modal.Title>
                     </Modal.Header>
                     <Modal.Footer>
                       <button onClick={handleCloseArchive} className="btn-cancel">
                         Cancel
                       </button>
-                      <button onClick={() => {
+                      {item.status === "Active" ? <button onClick={() => {
                         handleCloseArchive()
                         handleArchiveUser(item.id)
                       }
                       } className="btn-archive">
                         Archive
-                      </button>
+                      </button> : item.status === "Inactive" ? <button onClick={() => {
+                        handleCloseArchive()
+                        handleArchiveUser(item.id)
+                      }
+                      } className="btn-archive">
+                        Archive
+                      </button> : item.status === "Archive" ? <button onClick={() => {
+                        handleCloseArchive()
+                        handleUnArchiveUser(item.id)
+                      }
+                      } className="btn-archive">
+                        Unarchive
+                      </button> : <button onClick={() => {
+                        handleCloseArchive()
+                        handleUnArchiveUser(item.id)
+                      }
+                      } className="btn-archive">
+                        Unarchive
+                      </button>}
                     </Modal.Footer>
                   </Modal>
                 </tr>
               })
               }
-
-
               <tr className="home__table__content">
                 <td className="home__table__content--item">
-                  Showing 1-10 of 30 items
                 </td>
                 <td className="home__table__content--item" colSpan={2}>
-                  <Paginations
+                  <Pagination
                     usersPerPage={userPerPage}
                     totalUsers={users.length}
                     paginate={paginate}

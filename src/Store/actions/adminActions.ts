@@ -1,5 +1,6 @@
+import { listUser } from './../../models/getUser.d';
 import { AdminServices } from "../../Services/adminServices"
-import { GET_ALL_USERS, GET_ARCHIVE_USER } from "../constants/adminConstants";
+import { GET_ALL_USERS } from "../constants/adminConstants";
 import { createActions } from "../constants/createActions";
 
 
@@ -16,19 +17,44 @@ export const GetAllUsers = () => {
 }
 
 export const GetArchiveUsers = (id: string) => {
-  return async (dispatch: any) => {
+  return async () => {
     try {
       const result = await AdminServices.getArchiveUsers(id);
-      // dispatch(createActions(GET_ARCHIVE_USER, result.data.data))
-      console.log(result.data);
       if (result.data.statusCode === 200) {
-        alert(`Archive successfully`)
+        alert(`Archive user successfully`)
+        window.location.reload();
       }
-
     }
     catch (err) {
       console.log("errGetArchiver", err);
+    }
+  }
+}
 
+export const GetUnarchiveUsers = (id: string) => {
+  return async () => {
+    try {
+      const result = await AdminServices.getUnarchiveUsers(id);
+      if (result.data.statusCode === 200) {
+        alert("Unarchive user successfully");
+        window.location.reload();
+      }
+    }
+    catch (err) {
+      console.log("errGetUnarchiveUsers", err);
+    }
+  }
+}
+
+export const GetAddUser = (userNew: listUser) => {
+  return async () => {
+    try {
+      const result = await AdminServices.getAddUser(userNew);
+      console.log("getAddUser", result);
+
+    }
+    catch (err) {
+      console.log("errGetAddUser", err);
     }
   }
 }

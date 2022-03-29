@@ -1,3 +1,4 @@
+import { listUser } from '../models/getUser';
 import { DOMAIN_MY_LIFE } from './../Utils/systemSetting';
 import { request } from './Api/request';
 
@@ -21,6 +22,25 @@ export const AdminServices = {
     return request({
       url: `${DOMAIN_MY_LIFE}/api/v1/users/${id}/archive`,
       method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  },
+  getUnarchiveUsers(id: string) {
+    return request({
+      url: `${DOMAIN_MY_LIFE}/api/v1/users/${id}/unarchive`,
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  },
+  getAddUser(userNew: listUser) {
+    return request({
+      url: `${DOMAIN_MY_LIFE}/api/v1/users`,
+      method: 'POST',
+      data: userNew,
       headers: {
         Authorization: `Bearer ${token}`
       }

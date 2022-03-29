@@ -7,7 +7,7 @@ interface Pagination {
   paginate: any;
 }
 
-const Paginations = ({ usersPerPage, totalUsers, paginate }: Pagination) => {
+const Pagination = ({ usersPerPage, totalUsers, paginate }: Pagination) => {
   const [state, setState] = useState({
     activeIndex: 1,
   });
@@ -40,8 +40,4 @@ const Paginations = ({ usersPerPage, totalUsers, paginate }: Pagination) => {
     </nav>
   );
 };
-export default Paginations;
-
-function index(index: any) {
-  throw new Error("Function not implemented.");
-}
+export default Pagination;

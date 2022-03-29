@@ -35,10 +35,10 @@
 
   &__table {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1110px;
+    min-width: 850px;
     height: auto;
     max-height: 590px;
     background: #ffffff;
